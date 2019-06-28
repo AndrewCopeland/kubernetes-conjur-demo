@@ -16,15 +16,11 @@ export CONJUR_MAJOR_VERSION=5
 export OSHIFT_CLUSTER_ADMIN_USERNAME=admin
 export OSHIFT_CONJUR_ADMIN_USERNAME=admin
 export DEPLOY_MASTER_CLUSTER=true
-export cli=/usr/local/sbin/oc
-$cli login https://openshift.cyberarkuslab.local:8443 --username "$(conjur variable value openshift/username)" --password "$(conjur variable value openshift/password)" --insecure-skip-tls-verify=true
+export cli=oc
+$cli login https://openshift.cyberarkuslab.local:8443 --username "admin" --password "Cyberark1" --insecure-skip-tls-verify=true
 export CONJUR_ACCOUNT=conjur
 
 main() {
-  announce "Log into openshift"
-  
-  
-  
   announce "Deploying test apps for $TEST_APP_NAMESPACE_NAME."
 
   set_namespace $TEST_APP_NAMESPACE_NAME
@@ -78,11 +74,9 @@ init_connection_specs() {
   if [[ "$LOCAL_AUTHENTICATOR" == "true" ]]; then
     authenticator_client_image=$(platform_image conjur-authn-k8s-client)
     secretless_image=$(platform_image secretless-broker)
-    echo "Local Auth: $authenticator_client_image $secretless_image"
   else
     authenticator_client_image="cyberark/conjur-kubernetes-authenticator"
     secretless_image="cyberark/secretless-broker"
-    echo "Non-Local Auth: $authenticator_client_image $secretless_image"
   fi
 
   conjur_follower_name=${CONJUR_FOLLOWER_NAME:-conjur-follower}
@@ -151,7 +145,7 @@ deploy_sidecar_app() {
     serviceaccount/oc-test-app-summon-sidecar
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    $cli delete --ignore-not-found \
+    oc delete --ignore-not-found \
       deploymentconfig/test-app-summon-sidecar \
       route/test-app-summon-sidecar
   fi
@@ -173,7 +167,7 @@ deploy_sidecar_app() {
     $cli create -f -
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    $cli expose service test-app-summon-sidecar
+    oc expose service test-app-summon-sidecar
   fi
 
   echo "Test app/sidecar deployed."
@@ -188,7 +182,7 @@ deploy_init_container_app() {
     serviceaccount/oc-test-app-summon-init
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    $cli delete --ignore-not-found \
+    oc delete --ignore-not-found \
       deploymentconfig/test-app-summon-init \
       route/test-app-summon-init
   fi
@@ -210,7 +204,7 @@ deploy_init_container_app() {
     $cli create -f -
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    $cli expose service test-app-summon-init
+    oc expose service test-app-summon-init
   fi
 
   echo "Test app/init-container deployed."
@@ -226,7 +220,7 @@ deploy_secretless_app() {
     configmap/test-app-secretless-config
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    $cli delete --ignore-not-found \
+    oc delete --ignore-not-found \
       deploymentconfig/test-app-secretless \
       route/test-app-secretless
   fi
@@ -260,7 +254,7 @@ deploy_secretless_app() {
     $cli create -f -
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    $cli expose service test-app-secretless
+    oc expose service test-app-secretless
   fi
 
   echo "Secretless test app deployed."
