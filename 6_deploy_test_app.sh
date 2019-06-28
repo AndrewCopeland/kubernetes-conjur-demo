@@ -1,8 +1,6 @@
 #!/bin/bash
 set -eo pipefail
 
-. utils.sh
-
 export PLATFORM=openshift
 export TEST_APP_NAMESPACE_NAME=test-app
 export TEST_APP_DATABASE=mysql
@@ -14,6 +12,9 @@ export CONJUR_MAJOR_VERSION=5
 export OSHIFT_CLUSTER_ADMIN_USERNAME=admin
 export OSHIFT_CONJUR_ADMIN_USERNAME=admin
 export DEPLOY_MASTER_CLUSTER=true
+
+. utils.sh
+
 
 main() {
   announce "Log into openshift"
