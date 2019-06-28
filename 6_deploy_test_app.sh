@@ -205,7 +205,7 @@ deploy_init_container_app() {
     $cli create -f -
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    oc expose service test-app-summon-init
+    $cli expose service test-app-summon-init
   fi
 
   echo "Test app/init-container deployed."
@@ -221,7 +221,7 @@ deploy_secretless_app() {
     configmap/test-app-secretless-config
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    oc delete --ignore-not-found \
+    $cli delete --ignore-not-found \
       deploymentconfig/test-app-secretless \
       route/test-app-secretless
   fi
@@ -255,7 +255,7 @@ deploy_secretless_app() {
     $cli create -f -
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    oc expose service test-app-secretless
+    $cli expose service test-app-secretless
   fi
 
   echo "Secretless test app deployed."
