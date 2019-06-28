@@ -16,6 +16,8 @@ export OSHIFT_CONJUR_ADMIN_USERNAME=admin
 export DEPLOY_MASTER_CLUSTER=true
 export CONJUR_ACCOUNT=dev
 export CONJUR_MAJOR_VERSION=5
+export CONJUR_VERSION=5
+
 
 cli=/usr/local/sbin/oc
 main() {
