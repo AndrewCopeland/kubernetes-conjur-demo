@@ -17,7 +17,7 @@ export OSHIFT_CLUSTER_ADMIN_USERNAME=admin
 export OSHIFT_CONJUR_ADMIN_USERNAME=admin
 export DEPLOY_MASTER_CLUSTER=true
 export cli=oc
-$cli login https://openshift.cyberarkuslab.local:8443 --username "admin" --password "Cyberark1" --insecure-skip-tls-verify=true
+$cli login https://openshift.cyberarkuslab.local:8443 --username "$(conjur variable value openshift/username)" --password "$(conjur variable value openshift/password)" --insecure-skip-tls-verify=true
 export CONJUR_ACCOUNT=conjur
 
 main() {
