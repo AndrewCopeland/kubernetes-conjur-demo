@@ -4,6 +4,8 @@ set -eo pipefail
 . utils.sh
 
 main() {
+  announce "Log into openshift"
+  oc login https://openshift.cyberarkuslab.local:8443 --username "$(conjur variable value openshift/username)" --password "$(conjur variable value openshift/password)" --insecure-skip-tls-verify=true
   announce "Deploying test apps for $TEST_APP_NAMESPACE_NAME."
 
   set_namespace $TEST_APP_NAMESPACE_NAME
