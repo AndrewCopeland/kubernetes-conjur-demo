@@ -16,10 +16,11 @@ export CONJUR_ACCOUNT=dev
 
 . utils.sh
 
-
+cli=/usr/local/sbin/oc
 main() {
   announce "Log into openshift"
-  /usr/local/sbin/oc login https://openshift.cyberarkuslab.local:8443 --username "$(conjur variable value openshift/username)" --password "$(conjur variable value openshift/password)" --insecure-skip-tls-verify=true
+  
+  $cli login https://openshift.cyberarkuslab.local:8443 --username "$(conjur variable value openshift/username)" --password "$(conjur variable value openshift/password)" --insecure-skip-tls-verify=true
   export CONJUR_ACCOUNT=conjur
   announce "Deploying test apps for $TEST_APP_NAMESPACE_NAME."
 
