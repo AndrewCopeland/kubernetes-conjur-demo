@@ -146,7 +146,7 @@ deploy_sidecar_app() {
     serviceaccount/oc-test-app-summon-sidecar
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    oc delete --ignore-not-found \
+    $cli delete --ignore-not-found \
       deploymentconfig/test-app-summon-sidecar \
       route/test-app-summon-sidecar
   fi
@@ -168,7 +168,7 @@ deploy_sidecar_app() {
     $cli create -f -
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    oc expose service test-app-summon-sidecar
+    $cli expose service test-app-summon-sidecar
   fi
 
   echo "Test app/sidecar deployed."
@@ -183,7 +183,7 @@ deploy_init_container_app() {
     serviceaccount/oc-test-app-summon-init
 
   if [[ "$PLATFORM" == "openshift" ]]; then
-    oc delete --ignore-not-found \
+    $cli delete --ignore-not-found \
       deploymentconfig/test-app-summon-init \
       route/test-app-summon-init
   fi
