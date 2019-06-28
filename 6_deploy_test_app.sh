@@ -11,19 +11,20 @@ export CONJUR_NAMESPACE_NAME=conjur-follower
 export DOCKER_REGISTRY_URL=docker-registry.default.svc:5000
 export DOCKER_REGISTRY_PATH=$DOCKER_REGISTRY_URL
 export AUTHENTICATOR_ID=stage
+export CONJUR_ACCOUNT=dev
 export CONJUR_MAJOR_VERSION=5
 export OSHIFT_CLUSTER_ADMIN_USERNAME=admin
 export OSHIFT_CONJUR_ADMIN_USERNAME=admin
 export DEPLOY_MASTER_CLUSTER=true
-export CONJUR_ACCOUNT=dev
+export cli=/usr/local/sbin/oc
+$cli login https://openshift.cyberarkuslab.local:8443 --username "$(conjur variable value openshift/username)" --password "$(conjur variable value openshift/password)" --insecure-skip-tls-verify=true
+export CONJUR_ACCOUNT=conjur
 
-
-cli=/usr/local/sbin/oc
 main() {
   announce "Log into openshift"
   
-  $cli login https://openshift.cyberarkuslab.local:8443 --username "$(conjur variable value openshift/username)" --password "$(conjur variable value openshift/password)" --insecure-skip-tls-verify=true
-  export CONJUR_ACCOUNT=conjur
+  
+  
   announce "Deploying test apps for $TEST_APP_NAMESPACE_NAME."
 
   set_namespace $TEST_APP_NAMESPACE_NAME
