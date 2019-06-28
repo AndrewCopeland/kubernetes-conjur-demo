@@ -12,7 +12,7 @@ export CONJUR_MAJOR_VERSION=5
 export OSHIFT_CLUSTER_ADMIN_USERNAME=admin
 export OSHIFT_CONJUR_ADMIN_USERNAME=admin
 export DEPLOY_MASTER_CLUSTER=true
-export CONJUR_ACCOUNT=conjur
+export CONJUR_ACCOUNT=dev
 
 . utils.sh
 
@@ -20,7 +20,7 @@ export CONJUR_ACCOUNT=conjur
 main() {
   announce "Log into openshift"
   oc login https://openshift.cyberarkuslab.local:8443 --username "$(conjur variable value openshift/username)" --password "$(conjur variable value openshift/password)" --insecure-skip-tls-verify=true
-  
+  export CONJUR_ACCOUNT=conjur
   announce "Deploying test apps for $TEST_APP_NAMESPACE_NAME."
 
   set_namespace $TEST_APP_NAMESPACE_NAME
