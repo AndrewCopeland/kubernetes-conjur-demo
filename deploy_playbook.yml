@@ -1,0 +1,10 @@
+- hosts: openshift
+  tasks:
+    - name: Set environment variables for deployment script
+      shell: echo "Hello world"
+      environment:
+        OPENSHIFT_USERNAME: "{{ lookup('retrieve_conjur_variable', 'openshift/username') }}"
+        OPENSHIFT_PASSWORD: "{{ lookup('retrieve_conjur_variable', 'openshift/password') }}"
+
+    - name: Execute deployment script
+      script: ./6_deploy_test_app.sh

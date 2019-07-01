@@ -1,0 +1,2 @@
+[openshift]
+oc1 ansible_ssh_host="{{ lookup('retrieve_conjur_variable', 'openshift_ssh/address') }}" ansible_user="{{ lookup('retrieve_conjur_variable', 'openshift_ssh/username') }}" ansible_password="{{ lookup('retrieve_conjur_variable', 'openshift_ssh/password') }}"
