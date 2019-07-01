@@ -1,5 +1,10 @@
 - hosts: openshift
   tasks:
+    - name: example copying file with owner and permissions
+      copy:
+        src: ./utils.sh
+        dest: ./utils.sh
+  
     - name: Set environment variables for deployment script
       shell: echo "Hello world"
       environment:
