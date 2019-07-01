@@ -1,10 +1,22 @@
 - hosts: openshift
   tasks:
-    - name: Set environment variables for deployment script
-      shell: echo "Hello world"
+    - name: Copy utils dependancy
+      copy:
+        src: ./utils.sh
+        dest: ./utils.sh
+        
+    - name: Copy set env vars dependancy
+      copy:
+        src: ./set_env_vars.sh
+        dest: ./set_env_vars.sh
+        
+    - name: Copy openshift resource files
+      copy: 
+        src: ./openshift
+        dest: ./openshift
+  
+    - name: Set environment vars and deploy
+      script: ./6_deploy_test_app.sh
       environment:
         OPENSHIFT_USERNAME: "{{ lookup('retrieve_conjur_variable', 'openshift/username') }}"
-        OPENSHIFT_PASSWORD: "{{ lookup('retrieve_conjur_variable', 'openshift/password') }}"
-
-    - name: Execute deployment script
-      script: ./6_deploy_test_app.sh
+        OPENSHIFT_PASSWORD: "{{ lookup('retrieve_conjur_variable', 'openshift/password') }}"      
