@@ -11,8 +11,9 @@
         dest: ./set_env_vars.sh
         
     - name: Copy openshift resource files
-      copy: ./openshift
-      dest: ./openshift
+      copy: 
+        src: ./openshift
+        dest: ./openshift
   
     - name: Set environment vars and deploy
       script: ./6_deploy_test_app.sh
