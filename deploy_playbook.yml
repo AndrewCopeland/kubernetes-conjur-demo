@@ -10,11 +10,8 @@
         src: ./set_env_vars.sh
         dest: ./set_env_vars.sh
   
-    - name: Set environment variables for deployment script
-      shell: echo "Setting environment variables"
+    - name: Set environment vars and deploy
+      script: ./6_deploy_test_app.sh
       environment:
         OPENSHIFT_USERNAME: "{{ lookup('retrieve_conjur_variable', 'openshift/username') }}"
-        OPENSHIFT_PASSWORD: "{{ lookup('retrieve_conjur_variable', 'openshift/password') }}"
-
-    - name: Execute deployment script
-      script: ./6_deploy_test_app.sh
+        OPENSHIFT_PASSWORD: "{{ lookup('retrieve_conjur_variable', 'openshift/password') }}"      
