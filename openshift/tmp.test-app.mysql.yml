@@ -38,7 +38,7 @@ spec:
           - name: MYSQL_USER
             value: test_app
           - name: MYSQL_PASSWORD
-            value: 9450589fa70281539b2896a7
+            value: ca276ddd077faa806db7461d
           - name: MYSQL_DATABASE
             value: test_app
 
@@ -82,7 +82,7 @@ spec:
           - name: MYSQL_USER
             value: test_app
           - name: MYSQL_PASSWORD
-            value: 9450589fa70281539b2896a7
+            value: ca276ddd077faa806db7461d
           - name: MYSQL_DATABASE
             value: test_app
 
@@ -126,6 +126,6 @@ spec:
           - name: MYSQL_USER
             value: test_app
           - name: MYSQL_PASSWORD
-            value: 9450589fa70281539b2896a7
+            value: ca276ddd077faa806db7461d
           - name: MYSQL_DATABASE
             value: test_app
